@@ -1,0 +1,1636 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="./resources/ol.css">
+        <link rel="stylesheet" href="./resources/ol3-layerswitcher.css">
+        <link rel="stylesheet" href="./resources/qgis2web.css">
+        <style>
+        html, body {
+            background-color: #ffffff;
+        }
+        </style>
+<style>
+.tooltip {
+  position: relative;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  color: white;
+  padding: 4px 8px;
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.tooltip-measure {
+  opacity: 1;
+  font-weight: bold;
+}
+.tooltip-static {
+  background-color: #ffcc33;
+  color: black;
+  border: 1px solid white;
+}
+.tooltip-measure:before,
+.tooltip-static:before {
+  border-top: 6px solid rgba(0, 0, 0, 0.5);
+  border-right: 6px solid transparent;
+  border-left: 6px solid transparent;
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  margin-left: -7px;
+  left: 50%;
+}
+.tooltip-static:before {
+  border-top-color: #ffcc33;
+}
+.measure-control {
+  top: 65px;
+  left: .5em;
+}
+.ol-touch .measure-control {
+  top: 80px;
+}
+</style>
+        <style>
+        #map {
+            width: 1006px;
+            height: 580px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+            <div id="popup" class="ol-popup">
+                <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+            </div>
+        </div>
+        <script src="resources/qgis2web_expressions.js"></script>
+        <script src="resources/polyfills.js"></script>
+        <script src="./resources/functions.js"></script>
+        <script src="./resources/ol-debug.js"></script>
+        <script src="./resources/ol3-layerswitcher.js"></script>
+        <script src="layers/DepartamentosdeMendoza_0.js"></script><script src="layers/Energaporcombustindirectadeaserrnvirutaestoconescostaneros_1.js"></script><script src="layers/Energaporgasificacindeaserrnvirutaestoconescostaneros_2.js"></script><script src="layers/Aserrnvirutaestoconescostaneros_3.js"></script><script src="layers/EnergadePlantacionesforestales_4.js"></script><script src="layers/BiomasadePlantacionesforestales_5.js"></script><script src="layers/Energadebiomasaderestosdealimentospapelycartn_6.js"></script><script src="layers/BiomasadeRestosdealimentospapelycartn_7.js"></script><script src="layers/Energiadeguanodeplantasdefaenaavcola_8.js"></script><script src="layers/Energiadebiomasahmedadeplantasdefaenaavcola_9.js"></script><script src="layers/Energiadeefluenteslquidosdeplantasdefaena_10.js"></script><script src="layers/EnergiaEstiercolOvinobovinoporcino_11.js"></script><script src="layers/EnergiadeefluenteslquidosdemataderosOvinobovinoporcino_12.js"></script><script src="layers/Guanodeplantasdefaenaavcola_13.js"></script><script src="layers/Biomasahmedadeplantasdefaenaavcola_14.js"></script><script src="layers/Efluenteslquidosdeplantasdefaenaavcola_15.js"></script><script src="layers/EstircolOvinobovinoporcino_16.js"></script><script src="layers/BiomasalquidaOvinobovinoporcino_17.js"></script><script src="layers/EnergiaOrujoAceituna_18.js"></script><script src="layers/EnergiaOrujoUva_19.js"></script><script src="layers/EnergiaConservasTomate_20.js"></script><script src="layers/EnergiaConservasPera_21.js"></script><script src="layers/EnergiaConservasDurazno_22.js"></script><script src="layers/OrujoAceituna_23.js"></script><script src="layers/OrujoUva_24.js"></script><script src="layers/ConservasTomate_25.js"></script><script src="layers/ConservasPera_26.js"></script><script src="layers/ConservasDurazno_27.js"></script><script src="layers/EnergiaAlmendro_28.js"></script><script src="layers/EnergiaMembrillo_29.js"></script><script src="layers/EnergiaCerezo_30.js"></script><script src="layers/EnergiaNogal_31.js"></script><script src="layers/EnergiaDamasco_32.js"></script><script src="layers/EnergiaManzano_33.js"></script><script src="layers/EnergiaPeral_34.js"></script><script src="layers/EnergiaOlivo_35.js"></script><script src="layers/EnergiaDuraznero_36.js"></script><script src="layers/EnergiaCiruelo_37.js"></script><script src="layers/EnergiaVidespaldero_38.js"></script><script src="layers/EnergiaVidparral_39.js"></script><script src="layers/BiomasaAlmendro_40.js"></script><script src="layers/BiomasaMembrillo_41.js"></script><script src="layers/BiomasaCerezo_42.js"></script><script src="layers/BiomasaNogal_43.js"></script><script src="layers/BiomasaDamasco_44.js"></script><script src="layers/BiomasaManzano_45.js"></script><script src="layers/BiomasaPeral_46.js"></script><script src="layers/BiomasaOlivo_47.js"></script><script src="layers/BiomasaDuraznero_48.js"></script><script src="layers/BiomasaCiruelo_49.js"></script><script src="layers/BiomasaVidespaldero_50.js"></script><script src="layers/BiomasaVidparral_51.js"></script><script src="layers/Mataderos_52.js"></script><script src="layers/Conserveras_53.js"></script><script src="layers/Bodegas_54.js"></script><script src="layers/Aserraderos_55.js"></script><script src="layers/Aceiteras_56.js"></script><script src="layers/Diciembreacumulado_57.js"></script><script src="layers/Noviembreacumulado_58.js"></script><script src="layers/Octubreacumulado_59.js"></script><script src="layers/Septiembreacumulado_60.js"></script><script src="layers/Agostoacumulado_61.js"></script><script src="layers/Julioacumulado_62.js"></script><script src="layers/Junioacumulado_63.js"></script><script src="layers/Mayoacumulado_64.js"></script><script src="layers/Abrilacumulado_65.js"></script><script src="layers/Marzoacumulado_66.js"></script><script src="layers/Febreroacumulado_67.js"></script><script src="layers/Eneroacumulado_68.js"></script><script src="layers/Diciembrepromedio_69.js"></script><script src="layers/Noviembrepromedio_70.js"></script><script src="layers/Octubrepromedio_71.js"></script><script src="layers/Septiembrepromedio_72.js"></script><script src="layers/Agostopromedio_73.js"></script><script src="layers/Juliopromedio_74.js"></script><script src="layers/Juniopromedio_75.js"></script><script src="layers/Mayopromedio_76.js"></script><script src="layers/Abrilpromedio_77.js"></script><script src="layers/Marzopromedio_78.js"></script><script src="layers/Febreropromedio_79.js"></script><script src="layers/Eneropromedio_80.js"></script><script src="layers/Diciembremximo_81.js"></script><script src="layers/Noviembremximo_82.js"></script><script src="layers/Octubremximo_83.js"></script><script src="layers/Septiembremximo_84.js"></script><script src="layers/Agostomximo_85.js"></script><script src="layers/Juliomximo_86.js"></script><script src="layers/Juniomximo_87.js"></script><script src="layers/Mayomximo_88.js"></script><script src="layers/Abrilmximo_89.js"></script><script src="layers/Marzomximo_90.js"></script><script src="layers/Febreromximo_91.js"></script><script src="layers/Eneromximo_92.js"></script><script src="layers/ParquesProvinciales_93.js"></script><script src="layers/Cursosdeagua_94.js"></script><script src="layers/Cuerposdeagua_95.js"></script><script src="layers/Pequeosaprovechamientoshidroelctricos_96.js"></script><script src="layers/Lneasdemediatensin_97.js"></script><script src="layers/Lneasdealtatensin_98.js"></script><script src="layers/Centralesdegeneracin_99.js"></script><script src="layers/Estacionestransformadoras_100.js"></script><script src="layers/Redferroviaria_101.js"></script><script src="layers/Redvial_102.js"></script><script src="layers/Estacionesdeserviciodecombustibles_103.js"></script><script src="layers/Infraestructuradetransporte_104.js"></script><script src="layers/Yacimientosdehidrocarburos_105.js"></script><script src="layers/Pozosdehidrocarburos_106.js"></script>
+        <script src="styles/DepartamentosdeMendoza_0_style.js"></script><script src="styles/Energaporcombustindirectadeaserrnvirutaestoconescostaneros_1_style.js"></script><script src="styles/Energaporgasificacindeaserrnvirutaestoconescostaneros_2_style.js"></script><script src="styles/Aserrnvirutaestoconescostaneros_3_style.js"></script><script src="styles/EnergadePlantacionesforestales_4_style.js"></script><script src="styles/BiomasadePlantacionesforestales_5_style.js"></script><script src="styles/Energadebiomasaderestosdealimentospapelycartn_6_style.js"></script><script src="styles/BiomasadeRestosdealimentospapelycartn_7_style.js"></script><script src="styles/Energiadeguanodeplantasdefaenaavcola_8_style.js"></script><script src="styles/Energiadebiomasahmedadeplantasdefaenaavcola_9_style.js"></script><script src="styles/Energiadeefluenteslquidosdeplantasdefaena_10_style.js"></script><script src="styles/EnergiaEstiercolOvinobovinoporcino_11_style.js"></script><script src="styles/EnergiadeefluenteslquidosdemataderosOvinobovinoporcino_12_style.js"></script><script src="styles/Guanodeplantasdefaenaavcola_13_style.js"></script><script src="styles/Biomasahmedadeplantasdefaenaavcola_14_style.js"></script><script src="styles/Efluenteslquidosdeplantasdefaenaavcola_15_style.js"></script><script src="styles/EstircolOvinobovinoporcino_16_style.js"></script><script src="styles/BiomasalquidaOvinobovinoporcino_17_style.js"></script><script src="styles/EnergiaOrujoAceituna_18_style.js"></script><script src="styles/EnergiaOrujoUva_19_style.js"></script><script src="styles/EnergiaConservasTomate_20_style.js"></script><script src="styles/EnergiaConservasPera_21_style.js"></script><script src="styles/EnergiaConservasDurazno_22_style.js"></script><script src="styles/OrujoAceituna_23_style.js"></script><script src="styles/OrujoUva_24_style.js"></script><script src="styles/ConservasTomate_25_style.js"></script><script src="styles/ConservasPera_26_style.js"></script><script src="styles/ConservasDurazno_27_style.js"></script><script src="styles/EnergiaAlmendro_28_style.js"></script><script src="styles/EnergiaMembrillo_29_style.js"></script><script src="styles/EnergiaCerezo_30_style.js"></script><script src="styles/EnergiaNogal_31_style.js"></script><script src="styles/EnergiaDamasco_32_style.js"></script><script src="styles/EnergiaManzano_33_style.js"></script><script src="styles/EnergiaPeral_34_style.js"></script><script src="styles/EnergiaOlivo_35_style.js"></script><script src="styles/EnergiaDuraznero_36_style.js"></script><script src="styles/EnergiaCiruelo_37_style.js"></script><script src="styles/EnergiaVidespaldero_38_style.js"></script><script src="styles/EnergiaVidparral_39_style.js"></script><script src="styles/BiomasaAlmendro_40_style.js"></script><script src="styles/BiomasaMembrillo_41_style.js"></script><script src="styles/BiomasaCerezo_42_style.js"></script><script src="styles/BiomasaNogal_43_style.js"></script><script src="styles/BiomasaDamasco_44_style.js"></script><script src="styles/BiomasaManzano_45_style.js"></script><script src="styles/BiomasaPeral_46_style.js"></script><script src="styles/BiomasaOlivo_47_style.js"></script><script src="styles/BiomasaDuraznero_48_style.js"></script><script src="styles/BiomasaCiruelo_49_style.js"></script><script src="styles/BiomasaVidespaldero_50_style.js"></script><script src="styles/BiomasaVidparral_51_style.js"></script><script src="styles/Mataderos_52_style.js"></script><script src="styles/Conserveras_53_style.js"></script><script src="styles/Bodegas_54_style.js"></script><script src="styles/Aserraderos_55_style.js"></script><script src="styles/Aceiteras_56_style.js"></script><script src="styles/Diciembreacumulado_57_style.js"></script><script src="styles/Noviembreacumulado_58_style.js"></script><script src="styles/Octubreacumulado_59_style.js"></script><script src="styles/Septiembreacumulado_60_style.js"></script><script src="styles/Agostoacumulado_61_style.js"></script><script src="styles/Julioacumulado_62_style.js"></script><script src="styles/Junioacumulado_63_style.js"></script><script src="styles/Mayoacumulado_64_style.js"></script><script src="styles/Abrilacumulado_65_style.js"></script><script src="styles/Marzoacumulado_66_style.js"></script><script src="styles/Febreroacumulado_67_style.js"></script><script src="styles/Eneroacumulado_68_style.js"></script><script src="styles/Diciembrepromedio_69_style.js"></script><script src="styles/Noviembrepromedio_70_style.js"></script><script src="styles/Octubrepromedio_71_style.js"></script><script src="styles/Septiembrepromedio_72_style.js"></script><script src="styles/Agostopromedio_73_style.js"></script><script src="styles/Juliopromedio_74_style.js"></script><script src="styles/Juniopromedio_75_style.js"></script><script src="styles/Mayopromedio_76_style.js"></script><script src="styles/Abrilpromedio_77_style.js"></script><script src="styles/Marzopromedio_78_style.js"></script><script src="styles/Febreropromedio_79_style.js"></script><script src="styles/Eneropromedio_80_style.js"></script><script src="styles/Diciembremximo_81_style.js"></script><script src="styles/Noviembremximo_82_style.js"></script><script src="styles/Octubremximo_83_style.js"></script><script src="styles/Septiembremximo_84_style.js"></script><script src="styles/Agostomximo_85_style.js"></script><script src="styles/Juliomximo_86_style.js"></script><script src="styles/Juniomximo_87_style.js"></script><script src="styles/Mayomximo_88_style.js"></script><script src="styles/Abrilmximo_89_style.js"></script><script src="styles/Marzomximo_90_style.js"></script><script src="styles/Febreromximo_91_style.js"></script><script src="styles/Eneromximo_92_style.js"></script><script src="styles/ParquesProvinciales_93_style.js"></script><script src="styles/Cursosdeagua_94_style.js"></script><script src="styles/Cuerposdeagua_95_style.js"></script><script src="styles/Pequeosaprovechamientoshidroelctricos_96_style.js"></script><script src="styles/Lneasdemediatensin_97_style.js"></script><script src="styles/Lneasdealtatensin_98_style.js"></script><script src="styles/Centralesdegeneracin_99_style.js"></script><script src="styles/Estacionestransformadoras_100_style.js"></script><script src="styles/Redferroviaria_101_style.js"></script><script src="styles/Redvial_102_style.js"></script><script src="styles/Estacionesdeserviciodecombustibles_103_style.js"></script><script src="styles/Infraestructuradetransporte_104_style.js"></script><script src="styles/Yacimientosdehidrocarburos_105_style.js"></script><script src="styles/Pozosdehidrocarburos_106_style.js"></script>
+        <script src="./layers/layers.js" type="text/javascript"></script> 
+        <script src="./resources/qgis2web.js"></script>
+        <script src="./resources/Autolinker.min.js"></script>
+
+	<script>
+		lyr_DepartamentosdeMendoza_0.setVisible(true);lyr_Energaporcombustindirectadeaserrnvirutaestoconescostaneros_1.setVisible(false);
+		lyr_Energaporgasificacindeaserrnvirutaestoconescostaneros_2.setVisible(false);lyr_Aserrnvirutaestoconescostaneros_3.setVisible(false);
+	lyr_EnergadePlantacionesforestales_4.setVisible(false);lyr_BiomasadePlantacionesforestales_5.setVisible(false);
+	lyr_Energadebiomasaderestosdealimentospapelycartn_6.setVisible(false);lyr_BiomasadeRestosdealimentospapelycartn_7.setVisible(false);
+	lyr_Energiadeguanodeplantasdefaenaavcola_8.setVisible(false);lyr_Energiadebiomasahmedadeplantasdefaenaavcola_9.setVisible(false);
+	lyr_Energiadeefluenteslquidosdeplantasdefaena_10.setVisible(false);lyr_EnergiaEstiercolOvinobovinoporcino_11.setVisible(false);
+	lyr_EnergiadeefluenteslquidosdemataderosOvinobovinoporcino_12.setVisible(false);lyr_Guanodeplantasdefaenaavcola_13.setVisible(false);
+	lyr_Biomasahmedadeplantasdefaenaavcola_14.setVisible(false);lyr_Efluenteslquidosdeplantasdefaenaavcola_15.setVisible(false);
+	lyr_EstircolOvinobovinoporcino_16.setVisible(false);lyr_BiomasalquidaOvinobovinoporcino_17.setVisible(false);lyr_EnergiaOrujoAceituna_18.setVisible(false);
+	lyr_EnergiaOrujoUva_19.setVisible(false);lyr_EnergiaConservasTomate_20.setVisible(false);lyr_EnergiaConservasPera_21.setVisible(false);
+	lyr_EnergiaConservasDurazno_22.setVisible(false);lyr_OrujoAceituna_23.setVisible(false);lyr_OrujoUva_24.setVisible(false);lyr_ConservasTomate_25.setVisible(false);
+	lyr_ConservasPera_26.setVisible(false);lyr_ConservasDurazno_27.setVisible(false);lyr_EnergiaAlmendro_28.setVisible(false);lyr_EnergiaMembrillo_29.setVisible(false);
+	lyr_EnergiaCerezo_30.setVisible(false);lyr_EnergiaNogal_31.setVisible(false);lyr_EnergiaDamasco_32.setVisible(false);lyr_EnergiaManzano_33.setVisible(false);
+	lyr_EnergiaPeral_34.setVisible(false);lyr_EnergiaOlivo_35.setVisible(false);lyr_EnergiaDuraznero_36.setVisible(false);lyr_EnergiaCiruelo_37.setVisible(false);
+	lyr_EnergiaVidespaldero_38.setVisible(false);lyr_EnergiaVidparral_39.setVisible(false);lyr_BiomasaAlmendro_40.setVisible(false);
+	lyr_BiomasaMembrillo_41.setVisible(false);lyr_BiomasaCerezo_42.setVisible(false);lyr_BiomasaNogal_43.setVisible(false);lyr_BiomasaDamasco_44.setVisible(false);
+	lyr_BiomasaManzano_45.setVisible(false);lyr_BiomasaPeral_46.setVisible(false);lyr_BiomasaOlivo_47.setVisible(false);lyr_BiomasaDuraznero_48.setVisible(false);
+	lyr_BiomasaCiruelo_49.setVisible(false);lyr_BiomasaVidespaldero_50.setVisible(false);lyr_BiomasaVidparral_51.setVisible(false);lyr_Mataderos_52.setVisible(false);
+	lyr_Conserveras_53.setVisible(false);lyr_Bodegas_54.setVisible(false);lyr_Aserraderos_55.setVisible(false);lyr_Aceiteras_56.setVisible(false);
+	lyr_Diciembreacumulado_57.setVisible(false);lyr_Noviembreacumulado_58.setVisible(false);lyr_Octubreacumulado_59.setVisible(false);
+	lyr_Septiembreacumulado_60.setVisible(false);lyr_Agostoacumulado_61.setVisible(false);lyr_Julioacumulado_62.setVisible(false);lyr_Junioacumulado_63.setVisible(false);
+	lyr_Mayoacumulado_64.setVisible(false);lyr_Abrilacumulado_65.setVisible(false);lyr_Marzoacumulado_66.setVisible(false);lyr_Febreroacumulado_67.setVisible(false);
+	lyr_Eneroacumulado_68.setVisible(false);lyr_Diciembrepromedio_69.setVisible(false);lyr_Noviembrepromedio_70.setVisible(false);lyr_Octubrepromedio_71.setVisible(false);
+	lyr_Septiembrepromedio_72.setVisible(false);lyr_Agostopromedio_73.setVisible(false);lyr_Juliopromedio_74.setVisible(false);lyr_Juniopromedio_75.setVisible(false);
+	lyr_Mayopromedio_76.setVisible(false);lyr_Abrilpromedio_77.setVisible(false);lyr_Marzopromedio_78.setVisible(false);lyr_Febreropromedio_79.setVisible(false);
+	lyr_Eneropromedio_80.setVisible(false);lyr_Diciembremximo_81.setVisible(false);lyr_Noviembremximo_82.setVisible(false);lyr_Octubremximo_83.setVisible(false);
+	lyr_Septiembremximo_84.setVisible(false);lyr_Agostomximo_85.setVisible(false);lyr_Juliomximo_86.setVisible(false);lyr_Juniomximo_87.setVisible(false);
+	lyr_Mayomximo_88.setVisible(false);lyr_Abrilmximo_89.setVisible(false);lyr_Marzomximo_90.setVisible(false);lyr_Febreromximo_91.setVisible(false);
+	lyr_Eneromximo_92.setVisible(false);lyr_ParquesProvinciales_93.setVisible(false);lyr_Cursosdeagua_94.setVisible(false);lyr_Cuerposdeagua_95.setVisible(false);
+	lyr_Pequeosaprovechamientoshidroelctricos_96.setVisible(false);lyr_Lneasdemediatensin_97.setVisible(false);lyr_Lneasdealtatensin_98.setVisible(false);
+	lyr_Centralesdegeneracin_99.setVisible(false);lyr_Estacionestransformadoras_100.setVisible(false);lyr_Redferroviaria_101.setVisible(false);
+	lyr_Redvial_102.setVisible(false);lyr_Estacionesdeserviciodecombustibles_103.setVisible(false);lyr_Infraestructuradetransporte_104.setVisible(false);
+	lyr_Yacimientosdehidrocarburos_105.setVisible(false);lyr_Pozosdehidrocarburos_106.setVisible(false);
+
+
+	
+		
+	 // add the event handler
+            function handleCommand() {
+                //>>>IRRADIANCIA SOLAR MAXIMA MENSUAL(W/m <sup>2</sup>mes) <<<<
+            //-----------------------------------------------------
+                //***Enero***//
+               if(parent.document.getElementById("SolarMaxEne").checked==false){lyr_Eneromximo_92.setVisible(false);
+                                          //alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxEne").checked==true){lyr_Eneromximo_92.setVisible(true);
+                                              //alert("Clicked, checked = " + this.checked);
+                }
+              
+             //----------------------------------------------------------       
+                 //***Febrero***//
+                if(parent.document.getElementById("SolarMaxFeb").checked==false){lyr_Febreromximo_91.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxFeb").checked==true){lyr_Febreromximo_91.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+             //-------------------------------------------------------------
+                //***Marzo***//
+                if(parent.document.getElementById("SolarMaxMarz").checked==false){lyr_Marzomximo_90.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxMarz").checked==true){lyr_Marzomximo_90.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Abril***//
+                if(parent.document.getElementById("SolarMaxAbr").checked==false){lyr_Abrilmximo_89.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxAbr").checked==true){lyr_Abrilmximo_89.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Mayo***//
+                if(parent.document.getElementById("SolarMaxMay").checked==false){lyr_Mayomximo_88.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxMay").checked==true){lyr_Mayomximo_88.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+             //--------------------------------------------------------------
+                //***Junio***//
+                 if(parent.document.getElementById("SolarMaxJun").checked==false){lyr_Juniomximo_87.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxJun").checked==true){lyr_Juniomximo_87.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Julio***//
+                 if(parent.document.getElementById("SolarMaxJul").checked==false){lyr_Juliomximo_86.setVisible(false)
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxJul").checked==true){lyr_Juliomximo_86.setVisible(true)
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------    
+                //***Agosto***//
+                if(parent.document.getElementById("SolarMaxAgos").checked==false){lyr_Agostomximo_85.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxAgos").checked==true){lyr_Agostomximo_85.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //-------------------------------------------------------------- 
+                //***Septiembre***//
+                 if(parent.document.getElementById("SolarMaxSep").checked==false){lyr_Septiembremximo_84.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxSep").checked==true){lyr_Septiembremximo_84.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------  
+                //***Octubre***//
+                if(parent.document.getElementById("SolarMaxOct").checked==false){lyr_Octubremximo_83.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxOct").checked==true){lyr_Octubremximo_83.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //-------------------------------------------------------------- 
+                //***Noviembre***//
+                if(parent.document.getElementById("SolarMaxNov").checked==false){lyr_Noviembremximo_82.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxNov").checked==true){lyr_Noviembremximo_82.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //-------------------------------------------------------------- 
+                //***Diciembre***//
+                if(parent.document.getElementById("SolarMaxDic").checked==false){lyr_Diciembremximo_81.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarMaxDic").checked==true){lyr_Diciembremximo_81.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+             //alert("Clicked, checked = " + this.checked);
+                
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //>>>IRRADIANCIA SOLAR PROMEDIO MENSUAL(W/m <sup>2</sup>mes) </a><<<//!!
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***Enero***//
+                if(parent.document.getElementById("SolarPromEne").checked==false){lyr_Eneropromedio_80.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromEne").checked==true){lyr_Eneropromedio_80.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------  
+                //***Febrero***//
+                if(parent.document.getElementById("SolarPromFeb").checked==false){lyr_Febreropromedio_79.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromFeb").checked==true){lyr_Febreropromedio_79.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------  
+                //***Marzo***//
+                if(parent.document.getElementById("SolarPromMarz").checked==false){lyr_Marzopromedio_78.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromMarz").checked==true){lyr_Marzopromedio_78.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------  
+                 //***Abril***//
+                if(parent.document.getElementById("SolarPromAbr").checked==false){lyr_Abrilpromedio_77.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromAbr").checked==true){lyr_Abrilpromedio_77.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------   
+                 //***Mayo***//
+                if(parent.document.getElementById("SolarPromMay").checked==false){lyr_Mayopromedio_76.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromMay").checked==true){lyr_Mayopromedio_76.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------  
+                 //***Junio***//
+                if(parent.document.getElementById("SolarPromJun").checked==false){lyr_Juniopromedio_75.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromJun").checked==true){lyr_Juniopromedio_75.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                //***Julio***//
+                if(parent.document.getElementById("SolarPromJul").checked==false){lyr_Juliopromedio_74.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromJul").checked==true){lyr_Juliopromedio_74.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                 //***Agosto***//
+                if(parent.document.getElementById("SolarPromAgos").checked==false){lyr_Agostopromedio_73.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromAgos").checked==true){lyr_Agostopromedio_73.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                 //***Septiembre***//
+                if(parent.document.getElementById("SolarPromSep").checked==false){lyr_Septiembrepromedio_72.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromSep").checked==true){lyr_Septiembrepromedio_72.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+              //***Octubre***//
+                if(parent.document.getElementById("SolarPromOct").checked==false){lyr_Octubrepromedio_71.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromOct").checked==true){lyr_Octubrepromedio_71.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                //***Noviembre***//
+                if(parent.document.getElementById("SolarPromNov").checked==false){lyr_Noviembrepromedio_70.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromNov").checked==true){lyr_Noviembrepromedio_70.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                //***Diciembre***//
+                if(parent.document.getElementById("SolarPromDic").checked==false){lyr_Diciembrepromedio_69.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarPromDic").checked==true){lyr_Diciembrepromedio_69.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //-------------------------------------------------------------- 
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // IRRADIANCIA SOLAR ACUMULADA MENSUAL(W/m <sup>2</sup>mes)//!!
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***Enero***//
+                if(parent.document.getElementById("SolarAcuEne").checked==false){lyr_Eneroacumulado_68.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuEne").checked==true){lyr_Eneroacumulado_68.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Febrero***//
+                if(parent.document.getElementById("SolarAcuFeb").checked==false){lyr_Febreroacumulado_67.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuFeb").checked==true){lyr_Febreroacumulado_67.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Marzo***//
+                if(parent.document.getElementById("SolarAcuMarz").checked==false){lyr_Marzoacumulado_66.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuMarz").checked==true){lyr_Marzoacumulado_66.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                //***Abril***//
+                if(parent.document.getElementById("SolarAcuAbr").checked==false){lyr_Abrilacumulado_65.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuAbr").checked==true){lyr_Abrilacumulado_65.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Mayo***//
+                if(parent.document.getElementById("SolarAcuMay").checked==false){lyr_Mayoacumulado_64.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuMay").checked==true){lyr_Mayoacumulado_64.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                
+                //***Junio***//
+                if(parent.document.getElementById("SolarAcuJun").checked==false){lyr_Junioacumulado_63.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuJun").checked==true){lyr_Junioacumulado_63.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Julio***//
+                if(parent.document.getElementById("SolarAcuJul").checked==false){lyr_Julioacumulado_62.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuJul").checked==true){lyr_Julioacumulado_62.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Agosto***//
+                if(parent.document.getElementById("SolarAcuAgos").checked==false){lyr_Agostoacumulado_61.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuAgos").checked==true){lyr_Agostoacumulado_61.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Septiembre***//
+                if(parent.document.getElementById("SolarAcuSep").checked==false){lyr_Septiembreacumulado_60.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuSep").checked==true){lyr_Septiembreacumulado_60.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                //***Octubre***//
+                if(parent.document.getElementById("SolarAcuOct").checked==false){lyr_Octubreacumulado_59.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuOct").checked==true){lyr_Octubreacumulado_59.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Noviembre***//
+                if(parent.document.getElementById("SolarAcuNov").checked==false){lyr_Noviembreacumulado_58.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuNov").checked==true){lyr_Noviembreacumulado_58.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                 //***Diciembre***//
+                if(parent.document.getElementById("SolarAcuDic").checked==false){lyr_Diciembreacumulado_57.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("SolarAcuDic").checked==true){lyr_Diciembreacumulado_57.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+            //--------------------------------------------------------------
+                //********************************
+                //ENERGIA DE BIOMASA//************
+                //********************************
+                
+                        /***************************************
+                        **RESIDUOS DE PODA                     *
+                        ****************************************
+                        */
+                            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***Vid En Parral***//
+                if(parent.document.getElementById("PodaDispVid").checked==false){lyr_BiomasaVidparral_51.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispVid").checked==true){lyr_BiomasaVidparral_51.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                 //----------------------------------------------------------
+                
+                 //***Vid En Espaldero***//
+                if(parent.document.getElementById("PodaDispEsp").checked==false){lyr_BiomasaVidespaldero_50.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispEsp").checked==true){lyr_BiomasaVidespaldero_50.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Ciruelo***//
+                if(parent.document.getElementById("PodaDispCir").checked==false){lyr_BiomasaCiruelo_49.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispCir").checked==true){lyr_BiomasaCiruelo_49.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                
+                //***Duraznero***//
+                if(parent.document.getElementById("PodaDispDura").checked==false){lyr_BiomasaDuraznero_48.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispDura").checked==true){lyr_BiomasaDuraznero_48.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Olivo***//
+                if(parent.document.getElementById("PodaDispOli").checked==false){lyr_BiomasaOlivo_47.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispOli").checked==true){lyr_BiomasaOlivo_47.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Peral***//
+                if(parent.document.getElementById("PodaDispPer").checked==false){lyr_BiomasaPeral_46.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispPer").checked==true){lyr_BiomasaPeral_46.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                
+                 //***Manzano***//
+                if(parent.document.getElementById("PodaDispMan").checked==false){lyr_BiomasaManzano_45.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispMan").checked==true){lyr_BiomasaManzano_45.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Damasco***//
+                if(parent.document.getElementById("PodaDispDam").checked==false){lyr_BiomasaDamasco_44.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispDam").checked==true){lyr_BiomasaDamasco_44.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Nogal***//
+                if(parent.document.getElementById("PodaDispNog").checked==false){lyr_BiomasaNogal_43.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispNog").checked==true){lyr_BiomasaNogal_43.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                
+                //***Cerezo***//
+                if(parent.document.getElementById("PodaDispCer").checked==false){lyr_BiomasaCerezo_42.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispCer").checked==true){lyr_BiomasaCerezo_42.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                
+                 //***Membrillo***//
+                if(parent.document.getElementById("PodaDispMem").checked==false){lyr_BiomasaMembrillo_41.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispMem").checked==true){lyr_BiomasaMembrillo_41.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                //***Almendro***//
+                if(parent.document.getElementById("PodaDispAlm").checked==false){lyr_BiomasaAlmendro_40.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PodaDispAlm").checked==true){lyr_BiomasaAlmendro_40.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                
+            //--------------------------------------------------------------
+                
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    //POTENCIAL DE BIOENERGIA(GJ/año)</a>//!!!!
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***Vid En Parral***//
+                if(parent.document.getElementById("PotEnerVid").checked==false){lyr_EnergiaVidparral_39.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerVid").checked==true){lyr_EnergiaVidparral_39.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                
+                 
+                //***Vid En Espaldero***//
+                if(parent.document.getElementById("PotEnerEsp").checked==false){lyr_EnergiaVidespaldero_38.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerEsp").checked==true){lyr_EnergiaVidespaldero_38.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Ciruelo***//
+                if(parent.document.getElementById("PotEnerCir").checked==false){lyr_EnergiaCiruelo_37.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerCir").checked==true){lyr_EnergiaCiruelo_37.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Duraznero***//
+                if(parent.document.getElementById("PotEnerDur").checked==false){lyr_EnergiaDuraznero_36.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerDur").checked==true){lyr_EnergiaDuraznero_36.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Olivo***//
+                if(parent.document.getElementById("PotEnerOli").checked==false){lyr_EnergiaOlivo_35.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerOli").checked==true){lyr_EnergiaOlivo_35.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Peral***//
+                if(parent.document.getElementById("PotEnerPer").checked==false){lyr_EnergiaPeral_34.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerPer").checked==true){lyr_EnergiaPeral_34.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Manzano***//
+                if(parent.document.getElementById("PotEnerMan").checked==false){lyr_EnergiaManzano_33.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerMan").checked==true){lyr_EnergiaManzano_33.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Damasco***//
+                if(parent.document.getElementById("PotEnerDam").checked==false){lyr_EnergiaDamasco_32.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerDam").checked==true){lyr_EnergiaDamasco_32.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Nogal***//
+                if(parent.document.getElementById("PotEnerNog").checked==false){lyr_EnergiaNogal_31.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerNog").checked==true){lyr_EnergiaNogal_31.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 //***Cerezo***//
+                if(parent.document.getElementById("PotEnerCer").checked==false){lyr_EnergiaCerezo_30.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerCer").checked==true){lyr_EnergiaCerezo_30.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Membrillo***//
+                if(parent.document.getElementById("PotEnerMem").checked==false){lyr_EnergiaMembrillo_29.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerMem").checked==true){lyr_EnergiaMembrillo_29.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Almendro***//
+                if(parent.document.getElementById("PotEnerAlm").checked==false){lyr_EnergiaAlmendro_28.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEnerAlm").checked==true){lyr_EnergiaAlmendro_28.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                        /***************************************
+                        **RESIDUOS DE Agroindustria            *
+                        ****************************************
+                        */
+                            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+             //--------------------------------------------------------------
+                
+                //***Conservas de durazno***//
+                if(parent.document.getElementById("DispConDur").checked==false){lyr_ConservasDurazno_27.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("DispConDur").checked==true){lyr_ConservasDurazno_27.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Conservas de Pera***//
+                if(parent.document.getElementById("DispConPer").checked==false){lyr_ConservasPera_26.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("DispConPer").checked==true){lyr_ConservasPera_26.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Conservas de Tomate***//
+                if(parent.document.getElementById("DispConTom").checked==false){lyr_ConservasTomate_25.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("DispConTom").checked==true){lyr_ConservasTomate_25.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Orujo de Uva***//
+                if(parent.document.getElementById("DispConUva").checked==false){lyr_OrujoUva_24.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("DispConUva").checked==true){lyr_OrujoUva_24.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Orujo de Aceituna***//
+                if(parent.document.getElementById("DispConAcei").checked==false){lyr_OrujoAceituna_23.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("DispConAcei").checked==true){lyr_OrujoAceituna_23.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //POTENCIAL DE BIOENERGIA(GJ/año)//!!
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***Conservas de Durazno***//
+                if(parent.document.getElementById("PotConDur").checked==false){lyr_EnergiaConservasDurazno_22.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotConDur").checked==true){lyr_EnergiaConservasDurazno_22.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Conservas de Pera***//
+                if(parent.document.getElementById("PotConPer").checked==false){lyr_EnergiaConservasPera_21.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotConPer").checked==true){lyr_EnergiaConservasPera_21.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                 
+                //***Conservas de Tomate***//
+                if(parent.document.getElementById("PotConTom").checked==false){lyr_EnergiaConservasTomate_20.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotConTom").checked==true){lyr_EnergiaConservasTomate_20.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Orujo Uva***//
+                if(parent.document.getElementById("PotConUva").checked==false){lyr_EnergiaOrujoUva_19.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotConUva").checked==true){lyr_EnergiaOrujoUva_19.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                //***Orujo Aceituna***//
+                if(parent.document.getElementById("PotConAcei").checked==false){lyr_EnergiaOrujoAceituna_18.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotConAcei").checked==true){lyr_EnergiaOrujoAceituna_18.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+            //--------------------------------------------------------------
+                
+                /*************************
+                //RESIDUOS DE MATADEROS***
+                *///**********************
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //BIOMASA DISPONIBLE(t/año)!!!
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                 //***EFLUENTES LIQUIDOS DE MATADEROS DE OVINOS ,BOVINOS Y PORCINOS***//
+                if(parent.document.getElementById("Matadero1_1").checked==false){lyr_BiomasalquidaOvinobovinoporcino_17.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero1_1").checked==true){lyr_BiomasalquidaOvinobovinoporcino_17.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------            
+                
+                
+                 //***ESTIERCOL DE OVINOS ,BOVINOS Y PORCINOS ***//
+                if(parent.document.getElementById("Matadero1_2").checked==false){lyr_EstircolOvinobovinoporcino_16.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero1_2").checked==true){lyr_EstircolOvinobovinoporcino_16.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------      
+                
+                  //***EFLUENTES LIQUIDOS DE PLANTAS DE FAENA AVICOLAS***//
+                if(parent.document.getElementById("Matadero1_3").checked==false){lyr_Efluenteslquidosdeplantasdefaenaavcola_15.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero1_3").checked==true){lyr_Efluenteslquidosdeplantasdefaenaavcola_15.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------   
+                
+                //***BIOMASA HUMEDA DE PLANTAS DE FAENA AVICOLA***//
+                if(parent.document.getElementById("Matadero1_4").checked==false){lyr_Biomasahmedadeplantasdefaenaavcola_14.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero1_4").checked==true){lyr_Biomasahmedadeplantasdefaenaavcola_14.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------   
+                
+                
+                //***GUANO DE PLANTAS DE FAENA AVICOLA***//
+                if(parent.document.getElementById("Matadero1_5").checked==false){lyr_Guanodeplantasdefaenaavcola_13.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero1_5").checked==true){lyr_Guanodeplantasdefaenaavcola_13.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------   
+                
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //POTENCIAL DE BIOENERGIA(GJ/año)//!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***EFLUENTES LIQUIDOS DE MATADEROS DE OVINOS ,BOVINOS Y PORCINOS***//
+                if(parent.document.getElementById("Matadero2_1").checked==false){lyr_EnergiadeefluenteslquidosdemataderosOvinobovinoporcino_12.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero2_1").checked==true){lyr_EnergiadeefluenteslquidosdemataderosOvinobovinoporcino_12.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***ESTIERCOL DE OVINOS ,BOVINOS Y PORCINOS***//
+                if(parent.document.getElementById("Matadero2_2").checked==false){lyr_EnergiaEstiercolOvinobovinoporcino_11.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero2_2").checked==true){lyr_EnergiaEstiercolOvinobovinoporcino_11.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                 //***EFLUENTES LIQUIDOS DE PLANTAS DE FAENA AVICOLAS***//
+                if(parent.document.getElementById("Matadero2_3").checked==false){lyr_Energiadeefluenteslquidosdeplantasdefaena_10.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero2_3").checked==true){lyr_Energiadeefluenteslquidosdeplantasdefaena_10.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***BIOMASA HUMEDA DE PLANTAS DE FAENA AVICOLA***//
+                if(parent.document.getElementById("Matadero2_4").checked==false){lyr_Energiadebiomasahmedadeplantasdefaenaavcola_9.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero2_4").checked==true){lyr_Energiadebiomasahmedadeplantasdefaenaavcola_9.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***GUANO DE PLANTAS DE FAENA AVICOLA***//
+                if(parent.document.getElementById("Matadero2_5").checked==false){lyr_Energiadeguanodeplantasdefaenaavcola_8.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Matadero2_5").checked==true){lyr_Energiadeguanodeplantasdefaenaavcola_8.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                        //*****************************************
+                        /*RESIDUOS SOLIDOS URBANOS*****************
+                        *///***************************************
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                        //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                
+                //***RESTOS DE ALIMENTOS, PAPEL Y CARTON***//
+                if(parent.document.getElementById("BioRestos").checked==false){lyr_BiomasadeRestosdealimentospapelycartn_7.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("BioRestos").checked==true){lyr_BiomasadeRestosdealimentospapelycartn_7.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                        //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!!!
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                 //***RESTOS DE ALIMENTOS, PAPEL Y CARTON***//
+                if(parent.document.getElementById("PotRestos").checked==false){lyr_Energadebiomasaderestosdealimentospapelycartn_6.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotRestos").checked==true){lyr_Energadebiomasaderestosdealimentospapelycartn_6.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                
+                            /*****************************
+                            *RESIDUOS DE ASERRADEROS******
+                            *///**************************
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //BIOMASA DISPONIBLE(t/año)!!!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                 //***ASERRIN, VIRUTA, ESTOCONES, COSTANEROS***//
+                if(parent.document.getElementById("ResiBio").checked==false){lyr_Aserrnvirutaestoconescostaneros_3.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("ResiBio").checked==true){lyr_Aserrnvirutaestoconescostaneros_3.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //***ENERGIA POR COMBUSTION DIRECTA DE ASERRIN,VIRUTA,ESTOCONES,COSTANEROS***//
+                if(parent.document.getElementById("PotEneCom").checked==false){lyr_Energaporcombustindirectadeaserrnvirutaestoconescostaneros_1.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEneCom").checked==true){lyr_Energaporcombustindirectadeaserrnvirutaestoconescostaneros_1.setVisible(true);
+                                            // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                 //***ENERGIA POR GASIFICACION DE ASERRIN,VIRUTA,ESTOCONES Y COSTANEROS***//
+                if(parent.document.getElementById("PotEneGas").checked==false){lyr_Energaporgasificacindeaserrnvirutaestoconescostaneros_2.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotEneGas").checked==true){lyr_Energaporgasificacindeaserrnvirutaestoconescostaneros_2.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                
+                        /******************************************
+                        * RESIDUOS DE PLANTACIONES FORESTALES******
+                        *///***************************************
+                
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                  //***PLANTACIONES FORESTALES***//
+                if(parent.document.getElementById("BioFores").checked==false){lyr_BiomasadePlantacionesforestales_5.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("BioFores").checked==true){lyr_BiomasadePlantacionesforestales_5.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                
+                 //***PLANTACIONES FORESTALES***//
+                if(parent.document.getElementById("PotFores").checked==false){lyr_EnergadePlantacionesforestales_4.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("PotFores").checked==true){lyr_EnergadePlantacionesforestales_4.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //LOCALIZACION DE PUNTOS DE OFERTA!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                
+                //*** BODEGAS***//
+               if(parent.document.getElementById("LocBod").checked==false){lyr_Bodegas_54.setVisible(false);
+                                         //alert("Clicked, YYYchecked = " + this.checked);
+                }
+                else if(parent.document.getElementById("LocBod").checked==true){lyr_Bodegas_54.setVisible(true);
+                                    /*for(var i =0; i < 2; i++ ){
+                                        
+                                        lyr_Bodegas_68.setVisible(false);
+                                        lyr_Bodegas_68.setVisible(true);
+                                        
+                                         alert("Clicked, checked = " + this.checked);
+                                    } */                                           
+                                                                                
+                                             
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***ACEITERAS***//
+                if(parent.document.getElementById("LocAcei").checked==false){lyr_Aceiteras_56.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("LocAcei").checked==true){lyr_Aceiteras_56.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***CONSERVERAS***//
+                if(parent.document.getElementById("LocCon").checked==false){lyr_Conserveras_53.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("LocCon").checked==true){lyr_Conserveras_53.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***MATADEROS***//
+                if(parent.document.getElementById("LocMat").checked==false){lyr_Mataderos_52.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("LocMat").checked==true){lyr_Mataderos_52.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***ASERRADEROS***//
+                if(parent.document.getElementById("LocAse").checked==false){lyr_Aserraderos_55.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("LocAse").checked==true){lyr_Aserraderos_55.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                    //*****************
+                    //HIDROCARBUROS****
+                    //*****************
+                 //***POZOS DE HIDROCARBUROS***//
+                if(parent.document.getElementById("Hidro1").checked==false){lyr_Pozosdehidrocarburos_106.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Hidro1").checked==true){lyr_Pozosdehidrocarburos_106.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***YACIMIENTOS DE HIDROCARBUROS***//
+                if(parent.document.getElementById("Hidro2").checked==false){lyr_Yacimientosdehidrocarburos_105.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Hidro2").checked==true){lyr_Yacimientosdehidrocarburos_105.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //*********************************
+                //INFRAESTRUCTURA Y SERVICIOS******
+                //*********************************
+                
+                //***RED VIAL***//
+                if(parent.document.getElementById("Infra1").checked==false){lyr_Redvial_102.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra1").checked==true){lyr_Redvial_102.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                 //***RED FERROVIARIA***//
+                if(parent.document.getElementById("Infra2").checked==false){lyr_Redferroviaria_101.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra2").checked==true){lyr_Redferroviaria_101.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***INFRAESTRUCTURA DE TRANSPORTE***//
+                if(parent.document.getElementById("Infra3").checked==false){lyr_Infraestructuradetransporte_104.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra3").checked==true){lyr_Infraestructuradetransporte_104.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                 //***LINEAS DE ALTA TENSION ***//
+                if(parent.document.getElementById("Infra4").checked==false){lyr_Lneasdealtatensin_98.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra4").checked==true){lyr_Lneasdealtatensin_98.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                //***LINEAS DE MEDIA TENSION***//
+                if(parent.document.getElementById("Infra5").checked==false){lyr_Lneasdemediatensin_97.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra5").checked==true){lyr_Lneasdemediatensin_97.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                 //***ESTACIONES TRANSFORMADORAS***//
+                if(parent.document.getElementById("Infra6").checked==false){lyr_Estacionestransformadoras_100.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra6").checked==true){lyr_Estacionestransformadoras_100.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***CENTRALES DE GENERACION***//
+                if(parent.document.getElementById("Infra7").checked==false){lyr_Centralesdegeneracin_99.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra7").checked==true){lyr_Centralesdegeneracin_99.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***ESTACIONES DE SERVICIO DE COMBUSTIBLE***//
+                if(parent.document.getElementById("Infra8").checked==false){lyr_Estacionesdeserviciodecombustibles_103.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Infra8").checked==true){lyr_Estacionesdeserviciodecombustibles_103.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //*****************
+                //HIDROLOGIA*******
+                //*****************
+                
+                //***CUERPOS DE AGUA***//
+                if(parent.document.getElementById("hidro1").checked==false){lyr_Cuerposdeagua_95.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("hidro1").checked==true){lyr_Cuerposdeagua_95.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***CURSOS DE AGUA***//
+                if(parent.document.getElementById("hidro2").checked==false){lyr_Cursosdeagua_94.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("hidro2").checked==true){lyr_Cursosdeagua_94.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //***PEQUEÑOS APROVECHAMIENTOS HIDROELETRICOS***//
+                if(parent.document.getElementById("hidro3").checked==false){lyr_Pequeosaprovechamientoshidroelctricos_96.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("hidro3").checked==true){lyr_Pequeosaprovechamientoshidroelctricos_96.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                //********************************
+                //AREAS DE CONSERVACION***********
+                //********************************
+                
+                 //***PARQUES PROVINCIALES***//
+                if(parent.document.getElementById("Parques").checked==false){lyr_ParquesProvinciales_93.setVisible(false);
+                                        // alert("Clicked, checked = " + this.checked);
+                }
+                else if(parent.document.getElementById("Parques").checked==true){lyr_ParquesProvinciales_93.setVisible(true);
+                                             // alert("Clicked, checked = " + this.checked);
+                }
+                
+                //--------------------------------------------------------------  
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+            }
+            
+            
+            
+            
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             //>>>IRRADIANCIA SOLAR MAXIMA MENSUAL(W/m <sup>2</sup>mes) <<<<//!!
+            //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            parent.document.getElementById ("SolarMaxEne").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            parent.document.getElementById ("SolarMaxFeb").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            parent.document.getElementById ("SolarMaxMarz").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxAbr").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxMay").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxJun").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxJul").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxAgos").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxSep").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxOct").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxNov").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarMaxDic").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+        //----------------------------------------------------------------------
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!    
+        //>>>IRRADIANCIA SOLAR PROMEDIO MENSUAL(W/m <sup>2</sup>mes) </a><<<//!!!!!
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1!    
+             parent.document.getElementById ("SolarPromEne").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromFeb").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromMarz").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromAbr").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromMay").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromJun").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromJul").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromAgos").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromSep").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromOct").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromNov").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("SolarPromDic").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //-----------------------------------------------------------------
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                // IRRADIANCIA SOLAR ACUMULADA MENSUAL(W/m <sup>2</sup>mes)//!!
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        
+              parent.document.getElementById ("SolarAcuEne").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuFeb").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuMarz").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuAbr").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuMay").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuJun").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuJul").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuAgos").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuSep").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuOct").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuNov").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("SolarAcuDic").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //--------------------------------------------------------------------------
+            //********************************
+                //ENERGIA DE BIOMASA//************
+                //********************************
+                
+                        /***************************************
+                        **RESIDUOS DE PODA                     *
+                        ****************************************
+                        */
+                            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+             parent.document.getElementById ("PodaDispVid").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispEsp").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispCir").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispDura").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispOli").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispPer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispMan").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispDam").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispNog").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PodaDispCer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PodaDispMem").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PodaDispAlm").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //--------------------------------------------------------------------------
+            
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                    //POTENCIAL DE BIOENERGIA(GJ/año)</a>//!!!!
+                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            parent.document.getElementById ("PotEnerVid").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerEsp").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PotEnerCir").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerDur").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerOli").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerPer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerMan").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PotEnerDam").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PotEnerNog").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("PotEnerCer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerMem").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEnerAlm").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //-------------------------------------------------------------------------
+            
+                        /***************************************
+                        **RESIDUOS DE Agroindustria            *
+                        ****************************************
+                        */
+                            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             parent.document.getElementById ("DispConDur").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("DispConPer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("DispConTom").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("DispConUva").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("DispConAcei").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+                                
+            //----------------------------------------------------------------------------
+            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //POTENCIAL DE BIOENERGIA(GJ/año)//!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            parent.document.getElementById ("PotConDur").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotConPer").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotConTom").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotConUva").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotConAcei").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //---------------------------------------------------------------------------------
+            
+                /*************************
+                //RESIDUOS DE MATADEROS***
+                *///**********************
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        //BIOMASA DISPONIBLE(t/año)!!!
+                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            parent.document.getElementById ("Matadero1_1").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero1_2").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero1_3").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero1_4").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero1_5").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //----------------------------------------------------------------------------------
+            
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //POTENCIAL DE BIOENERGIA(GJ/año)//!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            parent.document.getElementById ("Matadero2_1").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Matadero2_2").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Matadero2_3").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero2_4").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Matadero2_5").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //-----------------------------------------------------------------------------------
+            
+            
+                        //*****************************************
+                        /*RESIDUOS SOLIDOS URBANOS*****************
+                        *///***************************************
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                        //BIOMASA DISPONIBLE(t/año)!!!!!!!!!!!
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             parent.document.getElementById ("BioRestos").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+           //----------------------------------------------------------------------------------- 
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                        //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!!!
+                                        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             parent.document.getElementById ("PotRestos").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //-----------------------------------------------------------------------------------
+                             /*****************************
+                             *RESIDUOS DE ASERRADEROS******
+                             *///**************************
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //BIOMASA DISPONIBLE(t/año)!!!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+              parent.document.getElementById ("ResiBio").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //-----------------------------------------------------------------------------------
+            
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                    //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!
+                                    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            parent.document.getElementById ("PotEneCom").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("PotEneGas").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //-----------------------------------------------------------------------------------
+            
+                        /******************************************
+                        * RESIDUOS DE PLANTACIONES FORESTALES******
+                        *///***************************************
+                
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //BIOMASA DISPONIBLE(t/año)!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+             parent.document.getElementById ("BioFores").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //----------------------------------------------------------------------------------
+            
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                                //POTENCIAL DE BIOENERGIA(GJ/año)!!!!!!!!!
+                                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            
+            
+              parent.document.getElementById ("PotFores").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //--------------------------------------------------------------------------------
+            
+                                //**************************************
+                                //LOCALIZACION DE PUNTOS DE OFERTA******
+                                //**************************************
+             parent.document.getElementById ("LocBod").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("LocAcei").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("LocCon").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("LocMat").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("LocAse").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            //-----------------------------------------------------------------------------------
+            
+                    //*****************
+                    //HIDROCARBUROS****
+                    //*****************
+            parent.document.getElementById ("Hidro1").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Hidro2").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //-----------------------------------------------------------------------------------
+            
+                //*********************************
+                //INFRAESTRUCTURA Y SERVICIOS******
+                //*********************************
+            parent.document.getElementById ("Infra1").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Infra2").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Infra3").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Infra4").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Infra5").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Infra6").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("Infra7").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            parent.document.getElementById ("Infra8").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //----------------------------------------------------------------------------------
+            
+                //*****************
+                //HIDROLOGIA*******
+                //*****************
+            parent.document.getElementById ("hidro1").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("hidro2").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+             parent.document.getElementById ("hidro3").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+            
+            //-------------------------------------------------------------------------
+            
+            //*************************
+            //Areas de Conservacion****
+            //*************************
+             parent.document.getElementById ("Parques").addEventListener ("click",/*palabra reservada "click"*/ handleCommand, true);
+            /*si se hace click llama a la funcion handleCommand*/
+
+
+	</script>
+    </body>
+</html>
